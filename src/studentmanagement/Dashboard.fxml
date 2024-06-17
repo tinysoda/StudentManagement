@@ -9,10 +9,13 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -231,7 +234,7 @@
                                           <String fx:value="white-bg" />
                                        </styleClass>
                                        <children>
-                                          <TextField layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="272.0" promptText="Search" />
+                                          <TextField layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="272.0" promptText="Search" styleClass="search" stylesheets="@DashboardDesign.css" />
                                           <FontAwesomeIcon glyphName="SEARCH" layoutX="260.0" layoutY="35.0" size="1.5em" />
                                           <TableView layoutX="14.0" layoutY="62.0" prefHeight="200.0" prefWidth="847.0">
                                             <columns>
@@ -248,14 +251,36 @@
                                        </children>
                                     </AnchorPane>
                                     <Label alignment="CENTER_RIGHT" layoutX="29.0" layoutY="300.0" text="Student ID:" />
-                                    <TextField />
-                                    <TextField layoutX="95.0" layoutY="296.0" prefHeight="25.0" prefWidth="106.0" />
+                                    <TextField layoutX="95.0" layoutY="296.0" prefHeight="25.0" prefWidth="73.0" />
                                     <ComboBox layoutX="95.0" layoutY="334.0" prefHeight="25.0" prefWidth="141.0" />
                                     <ComboBox layoutX="95.0" layoutY="374.0" prefHeight="25.0" prefWidth="142.0" />
-                                    <Label alignment="CENTER_RIGHT" layoutX="62.0" layoutY="338.0" text="Year:" />
+                                    <Label alignment="CENTER_RIGHT" layoutX="55.0" layoutY="338.0" text="Year:" />
                                     <Label alignment="CENTER_RIGHT" layoutX="48.0" layoutY="378.0" text="Course:" />
                                     <Label alignment="CENTER_RIGHT" layoutX="254.0" layoutY="300.0" prefHeight="17.0" prefWidth="70.0" text="First name:" />
                                     <TextField layoutX="337.0" layoutY="296.0" prefHeight="25.0" prefWidth="141.0" />
+                                    <Label alignment="CENTER_RIGHT" layoutX="254.0" layoutY="338.0" prefHeight="17.0" prefWidth="70.0" text="Last name:" />
+                                    <TextField layoutX="337.0" layoutY="334.0" prefHeight="25.0" prefWidth="141.0" />
+                                    <Label alignment="CENTER_RIGHT" layoutX="282.0" layoutY="378.0" text="Gender:" />
+                                    <RadioButton layoutX="337.0" layoutY="378.0" mnemonicParsing="false" text="Male" />
+                                    <RadioButton layoutX="412.0" layoutY="378.0" mnemonicParsing="false" text="Female" />
+                                    <Label alignment="CENTER_RIGHT" layoutX="277.0" layoutY="411.0" text="Birthday:" />
+                                    <DatePicker layoutX="337.0" layoutY="407.0" prefHeight="25.0" prefWidth="142.0" />
+                                    <ComboBox layoutX="95.0" layoutY="407.0" prefHeight="25.0" prefWidth="142.0" />
+                                    <Label alignment="CENTER_RIGHT" layoutX="50.0" layoutY="411.0" text="Status:" />
+                                    <AnchorPane layoutX="528.0" layoutY="317.0" prefHeight="148.0" prefWidth="118.0" stylesheets="@DashboardDesign.css">
+                                       <children>
+                                          <ImageView fitHeight="159.0" fitWidth="119.0" layoutX="-1.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Button layoutY="131.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="119.0" text="Insert" />
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="white-bg" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </AnchorPane>
+                                    <Button layoutX="728.0" layoutY="301.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="63.0" text="Add" />
+                                    <Button layoutX="728.0" layoutY="347.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="63.0" text="Update" />
+                                    <Button layoutX="728.0" layoutY="464.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="63.0" text="Delete" />
+                                    <Button layoutX="728.0" layoutY="416.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="63.0" text="Clear" />
                                  </children>
                               </AnchorPane>
                            </children>
