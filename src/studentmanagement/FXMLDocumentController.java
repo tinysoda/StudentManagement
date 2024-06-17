@@ -64,13 +64,8 @@ public class FXMLDocumentController implements Initializable {
         connect=database.connectDB();
         
         try{
-            Alert alert;
-            preparedSTM=connect.prepareStatement(sql);
-            preparedSTM.setString(1,tf_username.getText());
-            preparedSTM.setString(2,tf_password.getText());
-            
-            resultS=preparedSTM.executeQuery();
 //Check empty field
+                Alert alert;
             if(tf_username.getText().isEmpty()||tf_password.getText().isEmpty()){
                 alert=new Alert(AlertType.ERROR);
                 alert.setTitle("Error message");
@@ -78,6 +73,11 @@ public class FXMLDocumentController implements Initializable {
                 alert.setContentText("Fill in all the blank");
                 alert.showAndWait();
             }else{
+                preparedSTM=connect.prepareStatement(sql);
+                preparedSTM.setString(1,tf_username.getText());
+                preparedSTM.setString(2,tf_password.getText());
+
+                resultS=preparedSTM.executeQuery();
                 if(resultS.next()){
 //Proceed to dashboard
                     alert=new Alert(AlertType.INFORMATION);
