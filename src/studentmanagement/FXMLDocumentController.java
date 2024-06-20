@@ -58,7 +58,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void loginAdmin(){
-        String sql="SELECT * FROM admin WHERE username = ? AND password = ?";
+        String sql="SELECT * FROM admin WHERE username = ? AND pswd = ?";
         
         connect=database.connectDB();
         
