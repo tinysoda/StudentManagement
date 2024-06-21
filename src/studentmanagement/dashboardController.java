@@ -1,20 +1,26 @@
 package studentmanagement;
 
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.awt.event.ActionListener;
 import java.net.URL;
+import java.sql.*;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable {
@@ -23,7 +29,7 @@ public class dashboardController implements Initializable {
     private Button addStudents_addBtn;
 
     @FXML
-    private DatePicker addStudents_birth;
+    private DatePicker addStudents_birthday;
 
     @FXML
     private Button addStudents_btn;
@@ -32,28 +38,28 @@ public class dashboardController implements Initializable {
     private Button addStudents_clearBtn;
 
     @FXML
-    private TableColumn<?, ?> addStudents_col_birth;
+    private TableColumn<StudentData, Date> addStudents_col_birthday;
 
     @FXML
-    private TableColumn<?, ?> addStudents_col_course;
+    private TableColumn<StudentData,String> addStudents_col_course;
 
     @FXML
-    private TableColumn<?, ?> addStudents_col_firstName;
+    private TableColumn<StudentData,String> addStudents_col_firstName;
 
     @FXML
-    private TableColumn<?, ?> addStudents_col_gender;
+    private TableColumn<StudentData,String> addStudents_col_gender;
 
     @FXML
-    private TableColumn<?, ?> addStudents_col_lastName;
+    private TableColumn<StudentData,String> addStudents_col_lastName;
 
     @FXML
-    private TableColumn<?, ?> addStudents_col_status;
+    private TableColumn<StudentData,String> addStudents_col_status;
 
     @FXML
-    private TableColumn<?, ?> addStudents_col_studentNum;
+    private TableColumn<StudentData,String> addStudents_col_studentNum;
 
     @FXML
-    private TableColumn<?, ?> addStudents_col_year;
+    private TableColumn<StudentData,String> addStudents_col_year;
 
     @FXML
     private ComboBox<?> addStudents_course;
@@ -89,7 +95,7 @@ public class dashboardController implements Initializable {
     private TextField addStudents_studentNum;
 
     @FXML
-    private TableView<?> addStudents_tableView;
+    private TableView<StudentData> addStudents_tableView;
 
     @FXML
     private Button addStudents_updateBtn;
@@ -107,7 +113,7 @@ public class dashboardController implements Initializable {
     private Button availableCourse_clearBtn;
 
     @FXML
-    private TableColumn<?, ?> availableCourse_col_course;
+    private TableColumn<?,?> availableCourse_col_course;
 
     @FXML
     private TableColumn<?, ?> availableCourse_col_degree;
@@ -226,6 +232,96 @@ public class dashboardController implements Initializable {
     @FXML
     private Label username;
 
+    private double x=0;
+    private double y=0;
+    private Connection connection;
+    private PreparedStatement preparedStatement;
+    private Statement statement;
+    private ResultSet resultSet;
+
+
+//Show Students List
+    public ObservableList<StudentData> addStudent_DataList(){
+        ObservableList<StudentData> listStudents= FXCollections.observableArrayList();
+        String sql="SELECT * FROM student";
+        connection=DBUtils.connectDB();
+        try {
+            StudentData studentData;
+            preparedStatement=connection.prepareStatement(sql);
+            resultSet=preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                studentData=new StudentData(
+                        resultSet.getInt("studentNum"),
+                        resultSet.getString("year"),
+                        resultSet.getString("course"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("gender"),
+                        resultSet.getDate("birthday"),
+                        resultSet.getString("status"),
+                        resultSet.getString("image")
+                        );
+                listStudents.add(studentData);
+            }
+        }catch (Exception e){e.printStackTrace();}
+        return listStudents;
+    }
+
+    private ObservableList<StudentData> addStudent_ListData;
+    public void addStudent_ShowListData(){
+        addStudent_ListData=addStudent_DataList();
+        addStudents_col_studentNum.setCellValueFactory(new PropertyValueFactory<>("studentNum"));
+        addStudents_col_year.setCellValueFactory(new PropertyValueFactory<>("year"));
+        addStudents_col_course.setCellValueFactory(new PropertyValueFactory<>("course"));
+        addStudents_col_firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        addStudents_col_lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        addStudents_col_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        addStudents_col_birthday.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        addStudents_col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        addStudents_tableView.setItems(addStudent_ListData);
+    }
+
+
+    public void logout(){
+        try {
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout?");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure to logout?");
+
+        Optional <ButtonType> option=alert.showAndWait();
+
+        if (option.get().equals(ButtonType.OK)){
+            logout.getScene().getWindow().hide();
+
+            Parent root= FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+            Stage stage=new Stage();
+            Scene scene=new Scene(root);
+
+            stage.initStyle(StageStyle.TRANSPARENT);
+            root.setOnMousePressed((MouseEvent event)->{
+                x=event.getSceneX();
+                y=event.getSceneY();
+            });
+            root.setOnMouseDragged((MouseEvent event)->{
+                stage.setX(event.getScreenX()-x);
+                stage.setY(event.getScreenY()-y);
+
+                stage.setOpacity(.8);
+            });
+            root.setOnMouseReleased((MouseEvent event)->{
+                stage.setOpacity(1);
+            });
+            stage.setScene(scene);
+            stage.show();
+
+        }else return;
+
+        }catch (Exception e){e.printStackTrace();}
+    }
+
     public void close(){
         System.exit(0);
     }
@@ -233,11 +329,45 @@ public class dashboardController implements Initializable {
         Stage stage=(Stage)main_form.getScene().getWindow();
         stage.setIconified(true);
     }
-    public void switchForm(){
 
+    public void hideAllForms() {
+        home_form.setVisible(false);
+        home_btn.setStyle("-fx-background-color: TRANSPARENT");
+        addStudents_form.setVisible(false);
+        addStudents_btn.setStyle("-fx-background-color: TRANSPARENT");
+        availableCourse_form.setVisible(false);
+        availableCourse_btn.setStyle("-fx-background-color: TRANSPARENT");
+        studentGrade_form.setVisible(false);
+        studentGrade_btn.setStyle("-fx-background-color: TRANSPARENT");
     }
+    @FXML
+    public void switchForm(javafx.event.ActionEvent event) {
+        // Hide all forms first
+        hideAllForms();
+
+        // Show the selected form
+        if (event.getSource() == home_btn) {
+            home_form.setVisible(true);
+            home_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
+        } else if (event.getSource() == addStudents_btn) {
+            addStudents_form.setVisible(true);
+            addStudents_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
+//show Student list when clicked
+            addStudent_ShowListData();
+        } else if (event.getSource() == availableCourse_btn) {
+            availableCourse_form.setVisible(true);
+            availableCourse_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
+        } else if (event.getSource() == studentGrade_btn) {
+            studentGrade_form.setVisible(true);
+            studentGrade_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        hideAllForms();
+        home_form.setVisible(true);
+            home_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
+    }
 
     }
-}

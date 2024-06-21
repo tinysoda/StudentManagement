@@ -14,7 +14,7 @@ import java.sql.DriverManager;
  *
  * @author Administrator
  */
-public class database {
+public class DBUtils {
     public static Connection connectDB(){
         try{
             Class.forName("com.mysql.jdbc.Driver");

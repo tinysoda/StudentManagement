@@ -69,40 +69,36 @@
                                  </font>
                               </Label>
                               <Line endX="85.0" layoutX="109.0" layoutY="173.0" startX="-100.0" stroke="WHITE" />
-                              <Button fx:id="home_btn" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Home">
+                              <Button fx:id="home_btn" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Home">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="1.5em" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="addStudents_btn" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Add Students">
+                              <Button fx:id="addStudents_btn" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Add Students">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="PLUS_CIRCLE" size="1.5em" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="availableCourse_btn" layoutX="12.0" layoutY="281.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Available Courses">
+                              <Button fx:id="availableCourse_btn" layoutX="12.0" layoutY="281.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Available Courses">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="1.5em" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="studentGrade_btn" layoutX="12.0" layoutY="316.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Grades of Students">
+                              <Button fx:id="studentGrade_btn" layoutX="12.0" layoutY="316.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Grades of Students">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="CLIPBOARD" size="1.5em" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="logout" layoutX="12.0" layoutY="509.0" mnemonicParsing="false" stylesheets="@dashboardDesign.css">
-                                 <graphic>
-                                    <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
-                                 </graphic>
+                              <Button fx:id="logout" alignment="CENTER_RIGHT" layoutX="12.0" layoutY="509.0" mnemonicParsing="false" onAction="#logout" prefHeight="34.0" prefWidth="118.0" stylesheets="@dashboardDesign.css" text="Logout" textFill="WHITE">
                                  <styleClass>
                                     <String fx:value="logout" />
                                     <String fx:value="shadow" />
                                  </styleClass>
-                              </Button>
-                              <Label layoutX="58.0" layoutY="516.0" text="Sign Out" textFill="WHITE">
                                  <font>
                                     <Font name="Tahoma" size="15.0" />
                                  </font>
-                              </Label>
+                              </Button>
+                              <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" layoutX="24.0" layoutY="536.0" size="2em" text="" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -111,7 +107,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home_form" layoutX="90.0" layoutY="138.0" prefHeight="555.0" prefWidth="897.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="home_form" layoutX="90.0" layoutY="138.0" prefHeight="555.0" prefWidth="897.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="13.0" layoutY="12.0" prefHeight="532.0" prefWidth="872.0" stylesheets="@dashboardDesign.css">
                                  <styleClass>
@@ -224,7 +220,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="addStudents_form" layoutX="99.0" layoutY="143.0" prefHeight="555.0" prefWidth="897.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="addStudents_form" layoutX="99.0" layoutY="143.0" prefHeight="555.0" prefWidth="897.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="527.0" prefWidth="870.0" stylesheets="@dashboardDesign.css">
                                  <styleClass>
