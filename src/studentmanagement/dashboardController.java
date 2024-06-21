@@ -38,7 +38,7 @@ public class dashboardController implements Initializable {
     private Button addStudents_clearBtn;
 
     @FXML
-    private TableColumn<StudentData, Date> addStudents_col_birthday;
+    private TableColumn<StudentData, String> addStudents_col_birthday;
 
     @FXML
     private TableColumn<StudentData,String> addStudents_col_course;
@@ -241,7 +241,7 @@ public class dashboardController implements Initializable {
 
 
 //Show Students List
-    public ObservableList<StudentData> addStudent_DataList(){
+    public ObservableList<StudentData> addStudentListData(){
         ObservableList<StudentData> listStudents= FXCollections.observableArrayList();
         String sql="SELECT * FROM student";
         connection=DBUtils.connectDB();
@@ -268,9 +268,9 @@ public class dashboardController implements Initializable {
         return listStudents;
     }
 
-    private ObservableList<StudentData> addStudent_ListData;
-    public void addStudent_ShowListData(){
-        addStudent_ListData=addStudent_DataList();
+    private ObservableList<StudentData> addStudentListD;
+    public void addStudentShowListData(){
+        addStudentListD=addStudentListData();
         addStudents_col_studentNum.setCellValueFactory(new PropertyValueFactory<>("studentNum"));
         addStudents_col_year.setCellValueFactory(new PropertyValueFactory<>("year"));
         addStudents_col_course.setCellValueFactory(new PropertyValueFactory<>("course"));
@@ -280,7 +280,7 @@ public class dashboardController implements Initializable {
         addStudents_col_birthday.setCellValueFactory(new PropertyValueFactory<>("birthday"));
         addStudents_col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        addStudents_tableView.setItems(addStudent_ListData);
+        addStudents_tableView.setItems(addStudentListD);
     }
 
 
@@ -353,7 +353,7 @@ public class dashboardController implements Initializable {
             addStudents_form.setVisible(true);
             addStudents_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
 //show Student list when clicked
-            addStudent_ShowListData();
+            addStudentShowListData();
         } else if (event.getSource() == availableCourse_btn) {
             availableCourse_form.setVisible(true);
             availableCourse_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
@@ -366,8 +366,8 @@ public class dashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         hideAllForms();
-        home_form.setVisible(true);
-            home_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
+        addStudents_form.setVisible(true);
+        addStudents_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
     }
 
     }
