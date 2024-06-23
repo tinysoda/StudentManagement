@@ -21,6 +21,8 @@ import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -233,6 +235,7 @@ public class dashboardController implements Initializable {
     @FXML
     private Label username;
 
+
     private double x=0;
     private double y=0;
     private Connection connection;
@@ -240,6 +243,20 @@ public class dashboardController implements Initializable {
     private Statement statement;
     private ResultSet resultSet;
     private Image image;
+    private String[] yearList={
+            "First year",
+            "Second year",
+            "Third year",
+            "Last year",
+    };
+    public void addStudentYearList(){
+        List<String> yearL=new ArrayList<>();
+        for(String data:yearList){
+            yearL.add(data);
+        }
+        ObservableList OBList=FXCollections.observableArrayList(yearL);
+        addStudents_year.setItems(OBList);
+    }
 
     public void addStudentSelect(){
         StudentData studentD=addStudents_tableView.getSelectionModel().getSelectedItem();
@@ -369,6 +386,7 @@ public class dashboardController implements Initializable {
             addStudents_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
 //show Student list when clicked
             addStudentShowListData();
+            addStudentYearList();
         } else if (event.getSource() == availableCourse_btn) {
             availableCourse_form.setVisible(true);
             availableCourse_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
