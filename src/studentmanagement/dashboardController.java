@@ -12,6 +12,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -238,7 +239,21 @@ public class dashboardController implements Initializable {
     private PreparedStatement preparedStatement;
     private Statement statement;
     private ResultSet resultSet;
+    private Image image;
 
+    public void addStudentSelect(){
+        StudentData studentD=addStudents_tableView.getSelectionModel().getSelectedItem();
+        int num=addStudents_tableView.getSelectionModel().getSelectedIndex();
+
+        if (num-1<-1) return;
+        addStudents_studentNum.setText(String.valueOf(studentD.getStudentNum()));
+        addStudents_firstName.setText(studentD.getFirstName());
+        addStudents_lastName.setText(studentD.getLastName());
+        String url_image="file:"+studentD.getImage();
+
+        image =new Image(url_image,120,149,false,true);
+        addStudents_imageView.setImage(image);
+    }
 
 //Show Students List
     public ObservableList<StudentData> addStudentListData(){
@@ -366,8 +381,8 @@ public class dashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         hideAllForms();
-        addStudents_form.setVisible(true);
-        addStudents_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
+        home_form.setVisible(true);
+        home_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
     }
 
     }

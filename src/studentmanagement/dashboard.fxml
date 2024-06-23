@@ -236,7 +236,7 @@
                                        <children>
                                           <TextField fx:id="addStudents_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" />
                                           <FontAwesomeIcon fill="#727272" glyphName="SEARCH" layoutX="21.0" layoutY="35.0" size="1.5em" />
-                                          <TableView fx:id="addStudents_tableView" layoutX="13.0" layoutY="56.0" prefHeight="192.0" prefWidth="845.0">
+                                          <TableView fx:id="addStudents_tableView" layoutX="13.0" layoutY="56.0" onMouseClicked="#addStudentSelect" prefHeight="192.0" prefWidth="845.0">
                                              <columns>
                                                 <TableColumn fx:id="addStudents_col_studentNum" prefWidth="75.0" text="Student #" />
                                                 <TableColumn fx:id="addStudents_col_year" prefWidth="87.0" text="Year" />
