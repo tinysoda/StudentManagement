@@ -258,6 +258,14 @@ public class dashboardController implements Initializable {
         addStudents_year.setItems(OBList);
     }
 
+    public void addStudentGenderList(){
+        List<String> genderL=new ArrayList<>();
+        genderL.add("Male");
+        genderL.add("Female");
+        ObservableList OBList=FXCollections.observableArrayList(genderL);
+        addStudents_gender.setItems(OBList);
+    }
+
     public void addStudentSelect(){
         StudentData studentD=addStudents_tableView.getSelectionModel().getSelectedItem();
         int num=addStudents_tableView.getSelectionModel().getSelectedIndex();
@@ -387,6 +395,7 @@ public class dashboardController implements Initializable {
 //show Student list when clicked
             addStudentShowListData();
             addStudentYearList();
+            addStudentGenderList();
         } else if (event.getSource() == availableCourse_btn) {
             availableCourse_form.setVisible(true);
             availableCourse_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
