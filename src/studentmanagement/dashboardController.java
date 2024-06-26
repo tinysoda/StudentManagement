@@ -116,13 +116,13 @@ public class dashboardController implements Initializable {
     private Button availableCourse_clearBtn;
 
     @FXML
-    private TableColumn<?,?> availableCourse_col_course;
+    private TableColumn<CourseData,String> availableCourse_col_course;
 
     @FXML
-    private TableColumn<?, ?> availableCourse_col_degree;
+    private TableColumn<CourseData,String> availableCourse_col_degree;
 
     @FXML
-    private TableColumn<?, ?> availableCourse_col_description;
+    private TableColumn<CourseData,String> availableCourse_col_description;
 
     @FXML
     private TextField availableCourse_course;
@@ -140,7 +140,7 @@ public class dashboardController implements Initializable {
     private AnchorPane availableCourse_form;
 
     @FXML
-    private TableView<?> availableCourse_tableView;
+    private TableView<CourseData> availableCourse_tableView;
 
     @FXML
     private Button availableCourse_updateBtn;
@@ -266,6 +266,17 @@ public class dashboardController implements Initializable {
         addStudents_gender.setItems(OBList);
     }
 
+    private String[] addStudent_StatusList= {"Enrolled","Not Enrolled","Inactive"};
+
+    public void addStudentStatusList(){
+        List<String> statusL=new ArrayList<>();
+        for (String data:addStudent_StatusList){
+            statusL.add(data);
+        }
+        ObservableList OBList=FXCollections.observableArrayList(statusL);
+        addStudents_status.setItems(OBList);
+    }
+
     public void addStudentSelect(){
         StudentData studentD=addStudents_tableView.getSelectionModel().getSelectedItem();
         int num=addStudents_tableView.getSelectionModel().getSelectedIndex();
@@ -323,6 +334,50 @@ public class dashboardController implements Initializable {
         addStudents_tableView.setItems(addStudentListD);
     }
 
+//Show Available course
+
+    public void avaiableCourseSelect(){
+        CourseData courseD=availableCourse_tableView.getSelectionModel().getSelectedItem();
+        int num=availableCourse_tableView.getSelectionModel().getSelectedIndex();
+
+        if (num-1<-1) return;
+        availableCourse_course.setText(String.valueOf(courseD.getCourse()));
+        availableCourse_description.setText(String.valueOf(courseD.getDescription()));
+        availableCourse_degree.setText(String.valueOf(courseD.getDegree()));
+
+    }
+
+    //Show Students List
+    public ObservableList<CourseData> availableCourseListData(){
+        ObservableList<CourseData> listCourses= FXCollections.observableArrayList();
+        String sql="SELECT * FROM course";
+        connection=DBUtils.connectDB();
+        try {
+            CourseData courseData;
+            preparedStatement=connection.prepareStatement(sql);
+            resultSet=preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                courseData=new CourseData(
+                        resultSet.getString("course"),
+                        resultSet.getString("description"),
+                        resultSet.getString("degree")
+                );
+                listCourses.add(courseData);
+            }
+        }catch (Exception e){e.printStackTrace();}
+        return listCourses;
+    }
+
+    private ObservableList<CourseData> availableCourseListD;
+    public void availableCourseShowListData(){
+        availableCourseListD=availableCourseListData();
+        availableCourse_col_course.setCellValueFactory(new PropertyValueFactory<>("course"));
+        availableCourse_col_description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        availableCourse_col_degree.setCellValueFactory(new PropertyValueFactory<>("degree"));
+
+        availableCourse_tableView.setItems(availableCourseListD);
+    }
 
     public void logout(){
         try {
@@ -396,9 +451,11 @@ public class dashboardController implements Initializable {
             addStudentShowListData();
             addStudentYearList();
             addStudentGenderList();
+            addStudentStatusList();
         } else if (event.getSource() == availableCourse_btn) {
             availableCourse_form.setVisible(true);
             availableCourse_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
+            availableCourseShowListData();
         } else if (event.getSource() == studentGrade_btn) {
             studentGrade_form.setVisible(true);
             studentGrade_btn.setStyle("-fx-background-color: linear-gradient(to bottom right,#3f82ae,#26bf7d);");
