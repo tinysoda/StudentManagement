@@ -422,6 +422,12 @@ public class dashboardController implements Initializable {
         }catch (Exception e){e.printStackTrace();}
     }
 
+    public void availableCourseClear(){
+        availableCourse_course.clear();
+        availableCourse_description.clear();
+        availableCourse_degree.clear();
+    }
+
     public void logout(){
         try {
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
