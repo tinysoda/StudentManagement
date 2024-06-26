@@ -379,6 +379,49 @@ public class dashboardController implements Initializable {
         availableCourse_tableView.setItems(availableCourseListD);
     }
 
+    public void availableCourseAdd(){
+        String insertData="INSERT INTO course(course,description,degree) VALUES(?,?,?)";
+        connection=DBUtils.connectDB();
+        try {
+            Alert alert;
+            if (availableCourse_course.getText().isEmpty()||availableCourse_description.getText().isEmpty()||availableCourse_degree.getText().isEmpty()) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter all the fields correctly");
+                alert.showAndWait();
+            }
+            else {
+//        Check if data exist
+                String checkData="SELECT * FROM course WHERE course='"+availableCourse_course.getText()+"'";
+                statement=connection.prepareStatement(checkData);
+                resultSet=statement.executeQuery(checkData);
+                if (resultSet.next()) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Course"+availableCourse_course.getText()+" already exist");
+                    alert.showAndWait();
+                }else{
+                    preparedStatement=connection.prepareStatement(insertData);
+                    preparedStatement.setString(1,availableCourse_course.getText());
+                    preparedStatement.setString(2,availableCourse_description.getText());
+                    preparedStatement.setString(3,availableCourse_degree.getText());
+                    preparedStatement.executeUpdate();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information");
+                    alert.setHeaderText(null);
+                    alert.setContentText("added "+availableCourse_course.getText()+"successfully");
+                    alert.showAndWait();
+
+                    availableCourseShowListData();
+                }
+
+            }
+        }catch (Exception e){e.printStackTrace();}
+    }
+
     public void logout(){
         try {
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
