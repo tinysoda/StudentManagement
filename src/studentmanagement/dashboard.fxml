@@ -343,7 +343,7 @@
                                     </Label>
                                     <TextField fx:id="availableCourse_degree" layoutX="102.0" layoutY="121.0" prefHeight="25.0" prefWidth="155.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Button fx:id="availableCourse_addBtn" layoutX="22.0" layoutY="200.0" mnemonicParsing="false" onAction="#availableCourseAdd" prefHeight="41.0" prefWidth="85.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
-                                    <Button fx:id="availableCourse_updateBtn" layoutX="162.0" layoutY="200.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="85.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
+                                    <Button fx:id="availableCourse_updateBtn" layoutX="162.0" layoutY="200.0" mnemonicParsing="false" onAction="#availableCourseUpdate" prefHeight="41.0" prefWidth="85.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
                                     <Button fx:id="availableCourse_clearBtn" layoutX="22.0" layoutY="259.0" mnemonicParsing="false" onAction="#availableCourseClear" prefHeight="41.0" prefWidth="85.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Clear" />
                                     <Button fx:id="availableCourse_deleteBtn" layoutX="162.0" layoutY="259.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="85.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Delete" />
                                  </children>
