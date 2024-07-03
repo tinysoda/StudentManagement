@@ -22,14 +22,29 @@ USE `studentdb`;
 -- Dumping structure for table studentdb.admin
 CREATE TABLE IF NOT EXISTS `admin` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table studentdb.admin: ~0 rows (approximately)
-INSERT IGNORE INTO `admin` (`id`, `username`, `password`) VALUES
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 	(1, 'admin', 'admin123');
+
+-- Dumping structure for table studentdb.course
+CREATE TABLE IF NOT EXISTS `course` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `course` varchar(100) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `degree` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table studentdb.course: ~0 rows (approximately)
+INSERT INTO `course` (`id`, `course`, `description`, `degree`) VALUES
+	(1, '1', '2', '3'),
+	(2, '2', '3', '4'),
+	(3, '4', '5', '6');
 
 -- Dumping structure for table studentdb.student
 CREATE TABLE IF NOT EXISTS `student` (
@@ -47,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `student` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table studentdb.student: ~0 rows (approximately)
-INSERT IGNORE INTO `student` (`ID`, `studentNum`, `year`, `course`, `firstName`, `lastName`, `gender`, `birthday`, `status`, `image`) VALUES
+INSERT INTO `student` (`ID`, `studentNum`, `year`, `course`, `firstName`, `lastName`, `gender`, `birthday`, `status`, `image`) VALUES
 	(1, 100, '1', 'Java', 'John', 'Nguyen', 'Male', '1999-06-21', 'Going', 'E:\\Github\\StudentManagement\\src\\image\\wallhaven-2yxp16_1366x768.png');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
