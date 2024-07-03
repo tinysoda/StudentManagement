@@ -350,7 +350,7 @@ public class dashboardController implements Initializable {
     //Show Students List
     public ObservableList<CourseData> availableCourseListData(){
         ObservableList<CourseData> listCourses= FXCollections.observableArrayList();
-        String sql="SELECT * FROM course";
+        String sql="SELECT * FROM courses";
         connection=DBUtils.connectDB();
         try {
             CourseData courseData;
@@ -380,7 +380,7 @@ public class dashboardController implements Initializable {
     }
 
     public void availableCourseAdd(){
-        String insertData="INSERT INTO course(course,description,degree) VALUES(?,?,?)";
+        String insertData="INSERT INTO courses(course,description,degree) VALUES(?,?,?)";
         connection=DBUtils.connectDB();
         try {
             Alert alert;
@@ -393,14 +393,14 @@ public class dashboardController implements Initializable {
             }
             else {
 //        Check if data exist
-                String checkData="SELECT * FROM course WHERE course='"+availableCourse_course.getText()+"'";
+                String checkData="SELECT * FROM courses WHERE course='"+availableCourse_course.getText()+"'";
                 statement=connection.prepareStatement(checkData);
                 resultSet=statement.executeQuery(checkData);
                 if (resultSet.next()) {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText(null);
-                    alert.setContentText("Course"+availableCourse_course.getText()+" already exist");
+                    alert.setContentText("Course "+availableCourse_course.getText()+" already exist");
                     alert.showAndWait();
                 }else{
                     preparedStatement=connection.prepareStatement(insertData);
@@ -415,12 +415,46 @@ public class dashboardController implements Initializable {
                     alert.setContentText("added "+availableCourse_course.getText()+"successfully");
                     alert.showAndWait();
 
+                    availableCourseClear();
+
                     availableCourseShowListData();
                 }
 
             }
         }catch (Exception e){e.printStackTrace();}
     }
+
+    public void availableCourseUpdate(){
+        String updateData = "UPDATE courses SET description='" + availableCourse_description.getText() +
+                "', degree='" + availableCourse_degree.getText() +
+                "' WHERE course='" + availableCourse_course.getText() + "'";
+
+        connection=DBUtils.connectDB();
+        try {
+            Alert alert;
+            if (availableCourse_course.getText().isEmpty()||availableCourse_description.getText().isEmpty()||availableCourse_degree.getText().isEmpty()) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter all the fields correctly");
+                alert.showAndWait();
+
+                availableCourseShowListData();
+            }else {
+                statement=connection.createStatement();
+                statement.executeUpdate(updateData);
+
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information");
+                alert.setHeaderText(null);
+                alert.setContentText("updated "+availableCourse_course.getText()+"successfully");
+                alert.showAndWait();
+                availableCourseClear();
+                availableCourseShowListData();
+            }
+        }catch (Exception e){e.printStackTrace();}
+    }
+    public void availableCourseDelete(){}
 
     public void availableCourseClear(){
         availableCourse_course.clear();
