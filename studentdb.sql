@@ -32,7 +32,7 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 	(1, 'admin', 'admin123');
 
 -- Dumping structure for table studentdb.course
-CREATE TABLE IF NOT EXISTS `course` (
+CREATE TABLE IF NOT EXISTS `courses` (
   `id` int NOT NULL AUTO_INCREMENT,
   `course` varchar(100) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `course` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table studentdb.course: ~0 rows (approximately)
-INSERT INTO `course` (`id`, `course`, `description`, `degree`) VALUES
+INSERT INTO `courses` (`id`, `course`, `description`, `degree`) VALUES
 	(1, '1', '2', '3'),
 	(2, '2', '3', '4'),
 	(3, '4', '5', '6');

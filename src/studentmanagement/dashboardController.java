@@ -1,5 +1,19 @@
 package studentmanagement;
 
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,18 +27,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.net.URL;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable {
 
